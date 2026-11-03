@@ -48,3 +48,8 @@ scalelength_plot
 ggsave("../code/scale_hist_by_length.jpg", plot = scalelength_plot)
 
 ```
+
+```{r}
+ggplot(fish_data, aes(x = scalelength)) +
+  geom_histogram()
+```
