@@ -27,3 +27,13 @@ Summary statistics for fish scale length
 fish_data |> 
   summarize(min_scale_length = min(scalelength, na.rm = T), max_scale_length = max(scalelength, na.rm = T), mean_scale_length = mean(scalelength, na.rm = T))
 ```
+
+\# Question 3 - Remove fish with scale lengths below 1 mm
+
+```{r}
+fish_filtered <- fish_data |> filter(scalelength >= 1)
+
+nrow(fish_filtered)
+
+write_csv(fish_filtered, "../data/fish_filtered.csv")
+```
