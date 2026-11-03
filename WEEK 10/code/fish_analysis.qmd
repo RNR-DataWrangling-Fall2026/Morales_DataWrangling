@@ -36,4 +36,15 @@ fish_filtered <- fish_data |> filter(scalelength >= 1)
 nrow(fish_filtered)
 
 write_csv(fish_filtered, "../data/fish_filtered.csv")
+
+fish_filtered
+```
+
+```{r}
+scalelength_plot <- ggplot(fish_data, aes(x = scalelength)) +
+  geom_histogram(bins=80)
+scalelength_plot
+
+ggsave("../code/scale_hist_by_length.jpg", plot = scalelength_plot)
+
 ```
