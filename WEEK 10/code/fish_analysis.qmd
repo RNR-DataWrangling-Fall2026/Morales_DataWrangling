@@ -25,5 +25,5 @@ Summary statistics for fish scale length
 
 ```{r}
 fish_data |> 
-  summarize(min_scale_length = min(scalelength, na.rm = T), max_scale_length = max(scalelength, na.rm = T))
+  summarize(min_scale_length = min(scalelength, na.rm = T), max_scale_length = max(scalelength, na.rm = T), mean_scale_length = mean(scalelength, na.rm = T))
 ```
