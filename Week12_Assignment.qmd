@@ -1,0 +1,198 @@
+---
+title: "Week 12 Assignment"
+format: gfm
+editor: visual
+---
+
+# Assignment
+
+### Purpose
+
+The goal of this assignment is to practice writing and using conditional statements, `if_else` and `case_when`, and `if`-`else` statements, and to combine them with skills from earlier in the semester (joins, strings, and plotting).
+
+### Task
+
+Write R code to successfully answer each question below.
+
+### Criteria for Success
+
+- Code is within the provided code chunks or new code chunks are created where necessary
+- Code chunks run without errors
+- Code chunks have brief comments indicating which code is answering which part of the question
+- Code will be assessed as follows:
+  - Produces the correct answer using the requested approach: 100%
+  - Generally uses the right approach, but a minor mistake results in an incorrect answer: 90%
+  - Attempts to solve the problem and makes some progress using the core concept, but returns the wrong answer and does not demonstrate comfort with the core concept: 50%
+  - Answer demonstrates a lack of understanding of the core concept: 0%
+- Any questions requiring written answers are answered with sufficient detail
+
+### Due Date
+
+November 17 before class
+
+# Assignment Exercises
+
+### 1. Choice Operators (10 pts)
+
+Create the following variables by running the code chunk below.
+
+```{r}
+w <- 10.2
+x <- 1.3
+y <- 2.8
+z <- 17.5
+colors <- c("red", "blue", "green")
+masses <- c(45.2, 36.1, 27.8, 81.6, 42.4)
+```
+
+Using the variables above, write code that determines whether the following statements are `TRUE` or `FALSE`.
+
+a.  `"green"` is in `colors`
+b.  `"purple"` is not in `colors`
+c.  Each value in `masses` is greater than 40.
+d.  `w` is greater than `x`, or `y` is greater than `z`
+e.  `x` times `w` is between 13.2 and 13.5
+
+### 2. Using `dplyr` Choice Functions (20 points)
+
+For this question, we will be using functions from `dplyr` (part of the `tidyverse`) and data from the `lterdatasampler` package, so make sure you load both of those packages with the `library()` function.
+
+First, create an object called `crab_size` and assign the value 17 to it.
+
+a.  Use the `if_else` function from `dplyr` to say that a crab that is larger than or equal to 20 is "large" and a crab that is smaller than 20 is "small."
+
+b.  Use the `case_when` function to say that if a crab is greater than or equal to 20, it is "large;" if greater than or equal to 10 but less than 20, it is "medium;" and if it is smaller than 10, it is "small." Make sure that your `crab_size` object is still set to 17.
+
+c.  Take a look at the `pie_crab` dataset from the `lterdatasampler` package by running `head(pie_crab)`. We want to create a new column based on the `size` column. Using the `if_else` function inside of a `mutate` function, create a new column called `size_category` based on the same conditions as (a).
+
+    I've placed my new column next to the size column for the sake of the answer key; you don't need to do this.
+
+d.  Now use the `case_when` function inside a `mutate` function to create a new column called `size_category3` in the `pie_crab` data frame that meets the same conditions as (b).
+
+    I've placed my new column next to the size column for the sake of the answer key; you don't need to do this.
+
+### 3. If/Else Statements (20 points)
+
+a.  Complete the following `if` statement so that if `age_class` is equal to "sapling" it sets `y` to 10, if `age_class` is equal to "seedling" it sets `y` to 5, and if `age_class` is something else it sets `y` to 0.
+
+```{r}
+age_class <- "adult"
+if (){
+
+}
+y
+```
+
+b.  Convert your conditional statement from (a) into a function that takes `age_class` as an argument and returns `y`. Call this function 5 times, once with each of the following values for `age_class`: "sapling", "seedling", "adult", "mature", "established".
+
+c.  Write a function called `predict_value` that takes a single argument `x`. If `x` is greater than 0 and less than 15, return `y = 6 + 0.8 * x`. If `x` is greater than or equal to 15 and less than 30, return `y = 5 + 0.75 * x`. In all other cases, return `y = NA`. Call the function three times, with `5`, `26`, and `-2` as the input.
+
+### 4. Size Estimates by Name (20 points)
+
+This is a follow up to "Use and Modify" from Assignment 11.
+
+To make it even easier to work with your dinosaur size estimation functions you decide to create a function that lets you specify which dinosaur group you need to estimate the size of by name and then have the function automatically choose the right parameters.
+
+Remember the general form of the equation is:
+
+| mass \<- a \* length \^ b
+
+Create a new function `get_mass_from_length_by_name()` that takes two arguments: the `length` and the name of the dinosaur group.
+
+Inside this function use `if`/`else if`/`else` statements to check to see if the name is one of the following values and if so use the associated `a` and `b` values to estimate the species mass using these equations:
+
+- *Stegosauria*: `mass = 10.95 * length ^ 2.64` 
+- *Theropoda*: `mass = 0.73 * length ^ 3.63` 
+- *Sauropoda*: `mass = 214.44 * length ^ 1.46` 
+
+If the name is not any of these values the function should return `NA`.
+
+Run the function for the following:
+
+a.  A *Stegosauria* that is 10 meters long.
+b.  A *Theropoda* that is 8 meters long.
+c.  A *Sauropoda* that is 12 meters long.
+d.  An *Ankylosauria* that is 13 meters long.
+
+*Challenge 1 (optional)*: If the name is not one of values that have a and b values print warning that it doesn't know how to convert that group that includes that groups name in a message like "No known estimation for Ankylosauria." You can use the function `warning("your warning text")` to print a warning and the function `paste()` to combine text with a value from a variable such as `paste("My name is", name)`. Doing this successfully will modify your answer to (d), which is fine.
+
+*Challenge 2 (optional)*: Change your function so that it uses two different values of `a` and `b` for *Stegosauria*. When *Stegosauria* is greater than 8 meters long use the equation above. When it is 8 meters long or less, use `a = 8.5` and `b = 2.8`. Run the function for a *Stegosauria* that is 6 meters long.
+
+Hint: you can put an `if`-`else` statement inside another `if` statement, like this:
+
+```{r eval=FALSE}
+if (name == "Stegosauria") {
+  if (length > 8) {
+    # one set of a and b values
+  } else {
+    # another set of a and b values
+  }
+} else if ...
+```
+
+### 5. Putting It All Together: Portal Rodents (30 points)
+
+In this question, you will combine choice functions with joins, strings, and plotting. Load the `tidyverse` if you haven't already.
+
+Download the following Portal data tables using code below (modify the `destfile` arguments to point to the correct sub-directory) to get started.
+
+```{r}
+# download.file(url = "https://ndownloader.figshare.com/files/2292172",
+#   destfile = "surveys.csv")
+# download.file(url = "https://ndownloader.figshare.com/files/3299483",
+#   destfile = "species.csv")
+```
+
+a.  Join `surveys` and `species` together so that each survey record has the genus, species, and taxa information. Keep only rodents (`taxa` is "Rodent"). Then, use a `stringr` function to add a column called `scientific_name` that combines `genus` and `species` with a space between them (e.g., "Dipodomys merriami"). Save the result as an object called `rodents`.
+
+b.  Some individuals could only be identified to genus, so their `species` is "sp." (e.g., "Dipodomys sp."). Use `if_else` and `str_detect` inside a `mutate` to add a column called `id_level` that is "genus only" if `scientific_name` contains "sp." and "species" otherwise. Then use `count()` to show how many records fall into each `id_level`.
+
+    Hint: Remember that `.` is a special character in regular expressions! If you don't account for this, some species names (like *Dipodomys spectabilis*) will be counted incorrectly.
+
+c.  Use `if_else` and the `%in%` operator inside a `mutate` to add a column called `season` that is "warm" if the `month` is April through September (months 4-9) and "cool" otherwise.
+
+d.  Use `case_when` inside a `mutate` to add a column called `weight_class` with the following categories:
+
+    - "unknown" if `weight` is `NA`
+    - "small" if `weight` is less than 20
+    - "medium" if `weight` is greater than or equal to 20 and less than 50
+    - "large" for everything else (use the `.default` argument)
+
+    Save the results of (b), (c), and (d) back into your `rodents` object.
+
+    In a sentence or two, answer the following: what would happen to individuals with missing weights if you left out the "unknown" line? Why?
+
+e.  Using `rodents`, remove the individuals with an "unknown" weight class and count the number of individuals in each `year`, `season`, and `weight_class`. Then, make a line plot with `year` on the x-axis, the count on the y-axis, lines colored by `weight_class`, and a separate panel for each `season`. Give your plot informative axis labels and use a theme of your choice.
+
+    In a sentence or two, describe one pattern you see in the plot.
+
+### 6. Challenge: A "Safe" Tidyverse Function (OPTIONAL)
+
+In the lesson, we talked about how `if` statements can control your workflow, such as stopping your code with a helpful error message when something is wrong. Let's try it!
+
+Write a function called `categorize_by_threshold()` that takes three arguments: (1) a data frame, (2) a column in that data frame, and (3) a `threshold` value. (Remember `{{ }}` from Week 11!)
+
+The function should:
+
+- Use an `if` statement to check whether the column is numeric. If it is not, use `stop()` to end the function with the error message "Column must be numeric."
+- Use an `else if` statement to check whether `threshold` is outside the range of values in the column (ignoring `NA`s). If it is, use `stop()` and `paste()` to end the function with an error message that includes the minimum and maximum values of the column, like "Threshold must be between 4 and 280."
+- Otherwise, use `mutate()` and `if_else()` to add a new column called `category` that is "above" when the column value is greater than or equal to `threshold` and "below" when it is less than `threshold`.
+
+Hint: `pull(df, {{ col }})` will pull out a column as a vector, which you can then use with functions like `is.numeric()` and `range()`.
+
+Test your function on the `rodents` data frame from Question 5 four times:
+
+a.  with the `weight` column and a threshold of 50
+b.  with the `hindfoot_length` column and a threshold of 30
+c.  with the `genus` column and a threshold of 50 (this should give an error)
+d.  with the `weight` column and a threshold of 500 (this should give an error)
+
+Note: code chunks that produce an error will stop your document from rendering. Add `#| error: true` as the first line of the code chunks for (c) and (d) so the document will render and show the error messages.
+
+## Turning in Your Assignment
+
+As with the last few weeks, you will be submitting your assignment by submitting the link to your GitHub repository.
+
+**NOTE**: While I won't take points off for not doing this, it is very helpful for grading if you can "Render" your assignments to markdown (.md) files and push the .md files to GitHub.
+
+That way, I (a) know that your code runs successfully and (b) can go to your .md file on GitHub and easily see everything in your assignment, including your outputs, much like in the PDFs you submitted earlier in the semester.
