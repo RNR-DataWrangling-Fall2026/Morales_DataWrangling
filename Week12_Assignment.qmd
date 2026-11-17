@@ -43,6 +43,21 @@ y <- 2.8
 z <- 17.5
 colors <- c("red", "blue", "green")
 masses <- c(45.2, 36.1, 27.8, 81.6, 42.4)
+
+# 1a. Is green in colors?
+"green" %in% colors
+
+# 1b. Is purple not in colors?
+!("purple" %in% colors)
+
+# 1c. Is each mass greater than 40?
+masses > 40
+
+# 1d. Is w greater than x OR y greater than z?
+w > x | y > z
+
+# 1e. Is x times w between 13.2 and 13.5?
+x * w > 13.2 & x * w < 13.5
 ```
 
 Using the variables above, write code that determines whether the following statements are `TRUE` or `FALSE`.
@@ -71,16 +86,98 @@ d.  Now use the `case_when` function inside a `mutate` function to create a new 
 
     I've placed my new column next to the size column for the sake of the answer key; you don't need to do this.
 
+```{r}
+# Load packages
+library(tidyverse)
+library(lterdatasampler)
+
+# Create crab size
+crab_size <- 17
+
+# 2a. Large or small
+if_else(crab_size >= 20, "large", "small")
+
+# 2b. Large, medium, or small
+case_when(
+  crab_size >= 20 ~ "large",
+  crab_size >= 10 & crab_size < 20 ~ "medium",
+  crab_size < 10 ~ "small"
+)
+
+# 2c. Create size_category
+head(pie_crab)
+
+pie_crab <- pie_crab |>
+  mutate(size_category = if_else(size >= 20, "large", "small"))
+
+head(pie_crab)
+
+# 2d. Create size_category3
+pie_crab <- pie_crab |>
+  mutate(size_category3 = case_when(
+    size >= 20 ~ "large",
+    size >= 10 & size < 20 ~ "medium",
+    size < 10 ~ "small"
+  ))
+
+head(pie_crab)
+```
+
 ### 3. If/Else Statements (20 points)
 
 a.  Complete the following `if` statement so that if `age_class` is equal to "sapling" it sets `y` to 10, if `age_class` is equal to "seedling" it sets `y` to 5, and if `age_class` is something else it sets `y` to 0.
 
 ```{r}
 age_class <- "adult"
-if (){
 
+# 3a. Assign y based on age class
+age_class <- "adult"
+
+if (age_class == "sapling") {
+  y <- 10
+} else if (age_class == "seedling") {
+  y <- 5
+} else {
+  y <- 0
 }
+
 y
+
+# 3b. Function for age class
+get_age_value <- function(age_class) {
+  if (age_class == "sapling") {
+    y <- 10
+  } else if (age_class == "seedling") {
+    y <- 5
+  } else {
+    y <- 0
+  }
+  
+  return(y)
+}
+
+get_age_value("sapling")
+get_age_value("seedling")
+get_age_value("adult")
+get_age_value("mature")
+get_age_value("established")
+
+# 3c. Predict value based on x
+predict_value <- function(x) {
+  if (x > 0 & x < 15) {
+    y <- 6 + 0.8 * x
+  } else if (x >= 15 & x < 30) {
+    y <- 5 + 0.75 * x
+  } else {
+    y <- NA
+  }
+  
+  return(y)
+}
+
+predict_value(5)
+predict_value(26)
+predict_value(-2)
 ```
 
 b.  Convert your conditional statement from (a) into a function that takes `age_class` as an argument and returns `y`. Call this function 5 times, once with each of the following values for `age_class`: "sapling", "seedling", "adult", "mature", "established".
@@ -101,9 +198,9 @@ Create a new function `get_mass_from_length_by_name()` that takes two arguments:
 
 Inside this function use `if`/`else if`/`else` statements to check to see if the name is one of the following values and if so use the associated `a` and `b` values to estimate the species mass using these equations:
 
-- *Stegosauria*: `mass = 10.95 * length ^ 2.64` 
-- *Theropoda*: `mass = 0.73 * length ^ 3.63` 
-- *Sauropoda*: `mass = 214.44 * length ^ 1.46` 
+- *Stegosauria*: `mass = 10.95 * length ^ 2.64`
+- *Theropoda*: `mass = 0.73 * length ^ 3.63`
+- *Sauropoda*: `mass = 214.44 * length ^ 1.46`
 
 If the name is not any of these values the function should return `NA`.
 
@@ -121,13 +218,32 @@ d.  An *Ankylosauria* that is 13 meters long.
 Hint: you can put an `if`-`else` statement inside another `if` statement, like this:
 
 ```{r eval=FALSE}
-if (name == "Stegosauria") {
-  if (length > 8) {
-    # one set of a and b values
+# 4. Estimate dinosaur mass based on group
+get_mass_from_length_by_name <- function(length, name) {
+  if (name == "Stegosauria") {
+    mass <- 10.95 * length^2.64
+  } else if (name == "Theropoda") {
+    mass <- 0.73 * length^3.63
+  } else if (name == "Sauropoda") {
+    mass <- 214.44 * length^1.46
   } else {
-    # another set of a and b values
+    mass <- NA
   }
-} else if ...
+  
+  return(mass)
+}
+
+# 4a. Stegosauria, 10 meters
+get_mass_from_length_by_name(10, "Stegosauria")
+
+# 4b. Theropoda, 8 meters
+get_mass_from_length_by_name(8, "Theropoda")
+
+# 4c. Sauropoda, 12 meters
+get_mass_from_length_by_name(12, "Sauropoda")
+
+# 4d. Ankylosauria, 13 meters
+get_mass_from_length_by_name(13, "Ankylosauria")
 ```
 
 ### 5. Putting It All Together: Portal Rodents (30 points)
@@ -165,6 +281,83 @@ d.  Use `case_when` inside a `mutate` to add a column called `weight_class` with
 e.  Using `rodents`, remove the individuals with an "unknown" weight class and count the number of individuals in each `year`, `season`, and `weight_class`. Then, make a line plot with `year` on the x-axis, the count on the y-axis, lines colored by `weight_class`, and a separate panel for each `season`. Give your plot informative axis labels and use a theme of your choice.
 
     In a sentence or two, describe one pattern you see in the plot.
+
+```{r}
+surveys <- read_csv("data_raw/surveys.csv")
+species <- read_csv("data_raw/species.csv")
+
+# 5a. Load the Portal datasets
+surveys <- read_csv("data_raw/surveys.csv")
+species <- read_csv("data_raw/species.csv")
+
+# Join datasets and keep rodents
+rodents <- surveys |>
+  inner_join(species, by = "species_id") |>
+  filter(taxa == "Rodent") |>
+  mutate(scientific_name = str_c(genus, species, sep = " "))
+
+head(rodents)
+
+# 5b. Classify identification level
+rodents <- rodents |>
+  mutate(id_level = if_else(
+    str_detect(scientific_name, "sp\\."),
+    "genus only",
+    "species"
+  ))
+
+# Count records by identification level
+rodents |>
+  count(id_level)
+
+# 5c. Classify warm and cool seasons
+rodents <- rodents |>
+  mutate(season = if_else(
+    month %in% 4:9,
+    "warm",
+    "cool"
+  ))
+
+rodents |>
+  count(season)
+
+# 5d. Create weight categories
+rodents <- rodents |>
+  mutate(weight_class = case_when(
+    is.na(weight) ~ "unknown",
+    weight < 20 ~ "small",
+    weight >= 20 & weight < 50 ~ "medium",
+    .default = "large"
+  ))
+
+rodents |>
+  count(weight_class)
+
+#If I left out the "unknown" condition, individuals with missing weights would be classified as "large" because of the default argument. This would make the results inaccurate because their weights were not recorded.
+
+# 5e. Remove unknown weights and count individuals
+rodent_counts <- rodents |>
+  filter(weight_class != "unknown") |>
+  count(year, season, weight_class)
+
+# Make line plot
+rodent_plot <- ggplot(
+  rodent_counts,
+  aes(x = year, y = n, color = weight_class)
+) +
+  geom_line() +
+  facet_wrap(~ season) +
+  labs(
+    x = "Year",
+    y = "Number of Individuals",
+    color = "Weight Class"
+  ) +
+  theme_bw()
+
+rodent_plot
+
+#Medium-sized rodents generally had the highest number of observations in both seasons. Their numbers changed from year to year, with some noticeable increases during the late 1990s and early 2000s.
+```
 
 ### 6. Challenge: A "Safe" Tidyverse Function (OPTIONAL)
 
