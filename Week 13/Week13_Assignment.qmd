@@ -194,6 +194,11 @@ head(masses)
 
 # 2b. Add masses to the original data frame
 dinosaurs$mass <- masses
+
+# 2c. Calculate mean mass for each species
+dinosaurs |>
+  group_by(species) |>
+  summarize(mean_mass = mean(mass))
 ```
 
 ### 3. Multi-file Analysis (20 pts)
