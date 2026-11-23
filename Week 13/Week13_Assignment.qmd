@@ -89,6 +89,19 @@ for (i in 1:length(radius)) {
 }
 
 areas
+
+# 1e. Calculate and store rectangle areas
+lengths <- c(1.1, 2.2, 1.6)
+widths <- c(3.5, 2.4, 2.8)
+
+areas <- vector(mode = "numeric", length = length(lengths))
+
+for (i in 1:length(lengths)) {
+  areas[i] <- lengths[i] * widths[i]
+}
+
+areas
+
 ```
 
 b.  Write a for loop that loops over the following vector and prints out the mass in kilograms (`mass_kg = mass_lb / 2.2`)
