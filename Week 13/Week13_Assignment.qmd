@@ -271,7 +271,15 @@ for (i in 1:num_files) {
     theme_bw()
   
   print(collar_plot)
+
+# 3b. Store minimum and maximum latitude
+results$file_name[i] <- basename(filename)
+results$min_lat[i] <- min(locations$lat)
+results$max_lat[i] <- max(locations$lat)
 }
+  
+  # Display results
+  results
 ```
 
 ### 4. DNA or RNA (20 points)
