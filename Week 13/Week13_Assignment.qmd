@@ -165,7 +165,32 @@ dinosaurs <- read_csv("dinosaur_lengths.csv")
 
 head(dinosaurs)
 
+# Create function
+mass_from_length <- function(length, species) {
+  if (species == "Stegosauria") {
+    mass <- 10.95 * length^2.64
+  } else if (species == "Theropoda") {
+    mass <- 0.73 * length^3.63
+  } else if (species == "Sauropoda") {
+    mass <- 214.44 * length^1.46
+  } else {
+    mass <- 25.37 * length^2.49
+  }
+  
+  return(mass)
+}
 
+# 2a. Calculate and store estimated masses
+masses <- vector(mode = "numeric", length = nrow(dinosaurs))
+
+for (i in 1:nrow(dinosaurs)) {
+  masses[i] <- mass_from_length(
+    dinosaurs$lengths[i],
+    dinosaurs$species[i]
+  )
+}
+
+head(masses)
 ```
 
 ### 3. Multi-file Analysis (20 pts)
