@@ -221,6 +221,17 @@ b.  Add code to the loop to calculate the minimum and maximum latitude in the fi
 
     Show the data frame as output.
 
+```{r}
+# List files inside zip
+zip_files <- unzip("individual_collar_data.zip", list = TRUE)
+
+# Select collar data files
+collar_files <- zip_files$Name[
+  str_detect(zip_files$Name, "^collar-data-")
+]
+
+```
+
 ### 4. DNA or RNA (20 points)
 
 This question has you write a function and then use the function in several different forms of iteration.
