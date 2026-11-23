@@ -191,6 +191,9 @@ for (i in 1:nrow(dinosaurs)) {
 }
 
 head(masses)
+
+# 2b. Add masses to the original data frame
+dinosaurs$mass <- masses
 ```
 
 ### 3. Multi-file Analysis (20 pts)
