@@ -294,7 +294,18 @@ a.  Write a function that determines if a sequence of base pairs is DNA, RNA, or
 
 ```{r}
 # write your function here
-
+# 4a. Create function to identify DNA or RNA
+dna_or_rna <- function(sequence) {
+  if (str_detect(sequence, "u")) {
+    type <- "RNA"
+  } else if (str_detect(sequence, "t")) {
+    type <- "DNA"
+  } else {
+    type <- "UNKNOWN"
+  }
+  
+  return(type)
+}
 ```
 
 b.  Use the function to determine the sequence type for the following sequences.
