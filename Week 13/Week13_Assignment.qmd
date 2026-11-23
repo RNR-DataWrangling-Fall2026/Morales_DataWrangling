@@ -230,6 +230,29 @@ collar_files <- zip_files$Name[
   str_detect(zip_files$Name, "^collar-data-")
 ]
 
+# Unzip collar data
+unzip(
+  zipfile = "individual_collar_data.zip",
+  files = collar_files,
+  exdir = "."
+)
+
+# List collar data files
+data_files <- list.files(
+  path = ".",
+  pattern = "collar-data-.*.txt"
+)
+
+data_files
+
+# Create empty data frame
+num_files <- length(data_files)
+
+results <- data.frame(
+  file_name = vector("character", num_files),
+  min_lat = vector("numeric", num_files),
+  max_lat = vector("numeric", num_files)
+)
 ```
 
 ### 4. DNA or RNA (20 points)
