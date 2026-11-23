@@ -324,6 +324,26 @@ sequences <- c("ttgaatgccttacaactgatcattacacaggcggcatgaagcaaaaatatactgtgaaccaatg
               "gaaagcaagaaaaggcaggcgaggaagggaagaagggggggaaacc",
               "guuuccuacaguauuugaugagaaugagagcaccugaucagguggauaaggaagaugaagacu",
               "gauaaggaagaugaagacuuucaggaaucuaauaaaaugcacuccaugaauggauucauguaugggaaucagccggguc")
+
+# 4b. Identify individual sequences
+seq1 <- "ttgaatgccttacaactgatcattacacaggcggcatgaagcaaaaatatactgtgaaccaatgcaggcg"
+
+seq2 <- "gauuauuccccacaaagggagugggauuaggagcugcaucauuuacaagagcagaauguuucaaaugcau"
+
+seq3 <- "gaaagcaagaaaaggcaggcgaggaagggaagaagggggggaaacc"
+
+dna_or_rna(seq1)
+dna_or_rna(seq2)
+dna_or_rna(seq3)
+
+# Create vector of sequences
+sequences <- c(
+  "ttgaatgccttacaactgatcattacacaggcggcatgaagcaaaaatatactgtgaaccaatgcaggcg",
+  "gauuauuccccacaaagggagugggauuaggagcugcaucauuuacaagagcagaauguuucaaaugcau",
+  "gaaagcaagaaaaggcaggcgaggaagggaagaagggggggaaacc",
+  "guuuccuacaguauuugaugagaaugagagcaccugaucagguggauaaggaagaugaagacu",
+  "gauaaggaagaugaagacuuucaggaaucuaauaaaaugcacuccaugaauggauucauguaugggaaucagccggguc"
+)
 ```
 
 c.  Use the function you wrote and a `for` loop to create a vector of sequence types for the values in sequences
