@@ -253,6 +253,25 @@ results <- data.frame(
   min_lat = vector("numeric", num_files),
   max_lat = vector("numeric", num_files)
 )
+
+# 3a. Read each file and create a plot
+for (i in 1:num_files) {
+  
+  filename <- data_files[i]
+  
+  locations <- read.csv(filename)
+  
+  collar_plot <- ggplot(locations, aes(x = long, y = lat)) +
+    geom_path() +
+    labs(
+      title = basename(filename),
+      x = "Longitude",
+      y = "Latitude"
+    ) +
+    theme_bw()
+  
+  print(collar_plot)
+}
 ```
 
 ### 4. DNA or RNA (20 points)
