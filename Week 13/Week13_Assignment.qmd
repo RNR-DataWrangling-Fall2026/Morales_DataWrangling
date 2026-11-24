@@ -357,6 +357,18 @@ for (i in 1:length(sequences)) {
 
 sequence_types
 
+# 4d. Create data frame using function
+sequence_data <- data.frame(
+  sequence = vector("character", length(sequences)),
+  type = vector("character", length(sequences))
+)
+
+for (i in 1:length(sequences)) {
+  sequence_data$sequence[i] <- sequences[i]
+  sequence_data$type[i] <- dna_or_rna(sequences[i])
+}
+
+sequence_data
 
 ```
 
