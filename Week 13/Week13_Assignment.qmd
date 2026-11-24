@@ -344,6 +344,20 @@ sequences <- c(
   "guuuccuacaguauuugaugagaaugagagcaccugaucagguggauaaggaagaugaagacu",
   "gauaaggaagaugaagacuuucaggaaucuaauaaaaugcacuccaugaauggauucauguaugggaaucagccggguc"
 )
+
+# 4c. Create vector of sequence types
+sequence_types <- vector(
+  mode = "character",
+  length = length(sequences)
+)
+
+for (i in 1:length(sequences)) {
+  sequence_types[i] <- dna_or_rna(sequences[i])
+}
+
+sequence_types
+
+
 ```
 
 c.  Use the function you wrote and a `for` loop to create a vector of sequence types for the values in sequences
