@@ -370,6 +370,27 @@ for (i in 1:length(sequences)) {
 
 sequence_data
 
+# 4e. Reset data frame
+sequence_data <- data.frame(
+  sequence = vector("character", length(sequences)),
+  type = vector("character", length(sequences))
+)
+
+# Use if-else directly inside loop
+for (i in 1:length(sequences)) {
+  
+  sequence_data$sequence[i] <- sequences[i]
+  
+  if (str_detect(sequences[i], "u")) {
+    sequence_data$type[i] <- "RNA"
+  } else if (str_detect(sequences[i], "t")) {
+    sequence_data$type[i] <- "DNA"
+  } else {
+    sequence_data$type[i] <- "UNKNOWN"
+  }
+}
+
+sequence_data
 ```
 
 c.  Use the function you wrote and a `for` loop to create a vector of sequence types for the values in sequences
